@@ -8,7 +8,8 @@ class AuthForm extends StatefulWidget {
     bool isLogin,
     BuildContext ctx,
   ) submitFn;
-  const AuthForm(this.submitFn, {super.key});
+  final bool _isloading;
+  const AuthForm(this.submitFn, this._isloading, {super.key});
 
   @override
   State<AuthForm> createState() => _AuthFormState();
@@ -97,20 +98,23 @@ class _AuthFormState extends State<AuthForm> {
                     const SizedBox(
                       height: 12,
                     ),
-                    ElevatedButton(
-                      onPressed: _trySubmit,
-                      child: Text(_isLogin ? 'Login' : 'SignUp'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          _isLogin = !_isLogin;
-                        });
-                      },
-                      child: Text(_isLogin
-                          ? 'Create new account'
-                          : 'I already have an account'),
-                    ),
+                    if (widget._isloading) const CircularProgressIndicator(),
+                    if (!widget._isloading)
+                      ElevatedButton(
+                        onPressed: _trySubmit,
+                        child: Text(_isLogin ? 'Login' : 'SignUp'),
+                      ),
+                    if (!widget._isloading)
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            _isLogin = !_isLogin;
+                          });
+                        },
+                        child: Text(_isLogin
+                            ? 'Create new account'
+                            : 'I already have an account'),
+                      ),
                   ],
                 )),
           ),
