@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../widgets/firebase_messaging/fcm.dart';
 import '../widgets/chat/messages.dart';
 import '../widgets/chat/new_message.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  @override
+  void initState() {
+    super.initState();
+    FirebaseApi().initNotifictaions();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +26,7 @@ class ChatScreen extends StatelessWidget {
         title: const Text('ChatApp'),
         actions: [
           DropdownButton(
+            underline: Container(),
             icon: const Icon(
               Icons.more_vert,
               color: Colors.white,

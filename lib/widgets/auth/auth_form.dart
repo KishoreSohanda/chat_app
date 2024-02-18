@@ -55,7 +55,7 @@ class _AuthFormState extends State<AuthForm> {
         _userEmail!.trim(),
         _userPassword!.trim(),
         _userName!.trim(),
-        _userImageFile!,
+        _userImageFile ?? File(''),
         _isLogin,
         context,
       );
@@ -77,6 +77,9 @@ class _AuthFormState extends State<AuthForm> {
                   children: [
                     if (!_isLogin) UserImagePicker(_pickedImage),
                     TextFormField(
+                      autocorrect: false,
+                      textCapitalization: TextCapitalization.none,
+                      enableSuggestions: false,
                       key: const ValueKey('email'),
                       keyboardType: TextInputType.emailAddress,
                       decoration:
@@ -93,6 +96,9 @@ class _AuthFormState extends State<AuthForm> {
                     ),
                     if (!_isLogin)
                       TextFormField(
+                        autocorrect: true,
+                        textCapitalization: TextCapitalization.words,
+                        enableSuggestions: false,
                         key: const ValueKey('username'),
                         decoration:
                             const InputDecoration(labelText: 'User Name'),
