@@ -14,6 +14,9 @@ class _NewMessageState extends State<NewMessage> {
   var _enteredMessage = '';
   void _sendMessage() async {
     FocusScope.of(context).unfocus();
+    if (_enteredMessage.trim().isEmpty && _enteredMessage == '') {
+      return;
+    }
     final user = FirebaseAuth.instance.currentUser;
     final userData = await FirebaseFirestore.instance
         .collection('users')
@@ -27,6 +30,7 @@ class _NewMessageState extends State<NewMessage> {
       'userImage': userData['image_url'],
     });
     _controller.clear();
+    _enteredMessage = '';
   }
 
   @override
